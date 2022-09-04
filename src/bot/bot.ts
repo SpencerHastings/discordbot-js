@@ -22,7 +22,7 @@ export default class Bot {
         };
         const client = new Client(options);
         const commands: Collection<string, Command> = readInCommands();
-        const commandBuilders = commands.map(command => command.command_builder.toJSON());
+        const commandBuilders = commands.map(command => command.commandBuilder.toJSON());
         const rest = new REST({version: '10'}).setToken(token);
 
         (async () => {
@@ -55,16 +55,18 @@ export default class Bot {
 
             try {
                 if (c) {
-                    c.execute(interaction);
+                    await c.execute(interaction);
                 }
             }
             catch (e) {
+                console.log('Catch hit');
                 console.error(e);
                 if (e instanceof UserError) {
-                    await interaction.reply(e.userMessage);
+                    await interaction.reply({ content: e.userMessage, ephemeral: true });
                 } else {
-                    await interaction.reply("An error has occurred.");
+                    await interaction.reply({ content: "An error has occurred.", ephemeral: true });
                 }
+
             }
         });
 
