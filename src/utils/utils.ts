@@ -1,4 +1,4 @@
-import {ChatInputCommandInteraction, Collection, Role} from "discord.js";
+import {ChatInputCommandInteraction, Collection, Guild, Role} from "discord.js";
 
 
 const getRoles = (interaction: ChatInputCommandInteraction): Collection<string, Role> | null => {
@@ -27,8 +27,35 @@ const isHexColor = (color: any): boolean => {
 
 }
 
+const getRoleByName = (name: string, guild: Guild): Role | null => {
+    let role = guild.roles.cache.find((value: Role, key: string, collection: Collection<string, Role>) => {
+        return value.name === name;
+    })
+    if (role !== undefined) {
+        return role;
+    }
+    return null;
+}
+
+const moveRoleBelow = async (newRole: Role, interaction: ChatInputCommandInteraction, role: Role): Promise<void> => {
+    if (interaction.guild !== null) {
+
+        let roles = interaction.guild.roles.cache
+            .filter((value: Role, key: string, collection: Collection<string, Role>) => {
+                return value.position < role.position;
+            })
+            .sort((a, b) => b.position - a.position);
+        for (const r of roles.values()) {
+            await r.setPosition(r.position - 1);
+        }
+        await newRole.setPosition(role.position - 1);
+    }
+}
+
 export {
     getRoles,
     removeAllRolesBelow,
     isHexColor,
+    getRoleByName,
+    moveRoleBelow,
 }

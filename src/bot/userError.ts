@@ -1,4 +1,3 @@
-
 export default class UserError extends Error {
     userMessage: string
 
@@ -7,8 +6,7 @@ export default class UserError extends Error {
         Object.setPrototypeOf(this, UserError.prototype)
         if (userMessage) {
             this.userMessage = userMessage
-        }
-        else {
+        } else {
             this.userMessage = m
         }
     }
