@@ -2,7 +2,7 @@ import {ChatInputCommandInteraction, SlashCommandBuilder} from "discord.js";
 import {Command} from "../../command";
 
 const quotes: string[] = [
-    "The philosophers have only interpreted the world, in various ways. The point, however, is to change it.", "Surround yourself with people who make you happy. People who make you laugh, who help you when you’re in need. People who genuinely care. They are the ones worth keeping in your life. Everyone else is just passing through.",
+    "The philosophers have only interpreted the world, in various ways. The point, however, is to change it.",
     "Let the ruling classes tremble at a Communistic revolution. The proletarians have nothing to lose but their chains. They have a world to win.",
     "Reason has always existed, but not always in a reasonable form.",
     "If anything is certain, it is that I myself am not a Marxist.",
